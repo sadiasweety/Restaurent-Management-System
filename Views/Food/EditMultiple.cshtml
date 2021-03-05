@@ -1,0 +1,72 @@
+﻿@model RestaurentManagementSystem_EF.Models.ViewModels.VmMenuWiseFood
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Edit Product</h2>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@using (Html.BeginForm("EditMultiple", "Food", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            Category
+            <select id="MenuId" name="MenuId" required>
+                @foreach (var item in Model.MenuList)
+                {
+                    var Selected = item.MenuId == Model.MenuId ? "selected" : "";
+                    <option value="@item.MenuId" @Selected>@item.MenuName</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <div id="ProData" class="Table">
+                <div id="RowData" class="Row">
+                    <input type="hidden" name="ItemId" />
+                    <input type="text" name="FoodName" placeholder="FoodName" />
+                    <input type="text" name="Quantity" placeholder="Quantity" />
+                    <input type="text" name="Price" placeholder="Price" />
+                    <input type="date" name="ExpireDate" placeholder="ExpireDate" />
+                    <input type="file" name="imgFile" placeholder="imgFile" />
+                    <a id="addRow" href="#" class="btn btn-xs btn-success"><i>+</i></a><hr />
+                </div>
+                @foreach (var item in Model.FoodList)
+                {
+                    var ExpireDate = item.ExpireDate == null ? "" : Convert.ToDateTime(item.ExpireDate).ToString("yyyy-MM-dd");
+                    <div id="RowData" class="Row">
+                        <input type="hidden" name="ItemId" value="@item.ItemId" />
+                        <input type="text" name="FoodName" placeholder="ProductName" value="@item.FoodName" />
+                        <input type="text" name="Quantity" placeholder="Quantity" value="@item.Quantity" />
+                        <input type="text" name="Price" placeholder="Price" value="@item.Price" />
+                        <input type="date" name="ExpireDate" placeholder="ExpireDate" value="@ExpireDate" />
+                        <input type="file" name="imgFile" placeholder="imgFile" />
+                        <a id="deleteRow" href="#" class="btn btn-xs btn-danger"><i>-</i></a>
+                        <img src="@item.ImagePath" style="width:150px" />
+                        <hr />
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Edit" class="btn btn-default">
+            </div>
+        </div>
+    </div>
+}
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script>
+
+    $('#addRow').on('click', function () {
+        $('#ProData').append('<div id="RowData" class="Row"><input type="text" name="ProductName" placeholder="ProductName" /><input type="text" name="Quantity" placeholder="Quantity" /><input type="text" name="Price" placeholder="Price" /><input type="date" name="ExpireDate" placeholder="ExpireDate" /><input type="file" name="imgFile" placeholder="imgFile" /><a id="deleteRow" href="#" class="btn btn-xs btn-danger"><i>-</i></a><hr /></div>');
+        $('#ProData').addClass();
+        return false; //prevent form submission
+    });
+    $('#ProData').on('click', '#deleteRow', function () {
+        $(this).parent().remove();
+        return false; //prevent form submission
+    });
+</script>

@@ -1,0 +1,23 @@
+﻿
+
+<div class="table table-bordered">
+    <div class="panel-heading">
+        <h4>Assign Role to a User</h4>
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm("RoleAddToUser", "Roles"))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <p>User Name: @Html.DropDownList("UserName", (IEnumerable<SelectListItem>)ViewBag.Users, "Select ...",new { @class="dropdown-trigger btn"})</p>
+            <p>Role Name: @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, "Select ...",new { @class="dropdown-trigger btn"})</p>
+            <p><input type="submit" value="Save" class="btn-primary" /></p>
+
+        }
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back", "Index", "Roles")
+</div>

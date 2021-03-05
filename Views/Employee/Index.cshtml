@@ -1,0 +1,40 @@
+﻿@model IEnumerable<RestaurentManagementSystem_EF.Models.EmployeeListViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Add a Employee</h2>
+<hr />
+@Html.ActionLink("Create New", "Create", "Employee", htmlAttributes: new { @class = "btn btn-primary", @role = "button" })
+<h2>Employee Information</h2>
+<div>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Date Of Birth</th>
+            <th>Imagr</th>
+            <th>Edit</th>
+            <th>Delete</th>
+
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.EmployeeId</td>
+                <td>@item.EmployeeName</td>
+                <td>@item.Email</td>
+                <td>@Convert.ToString(String.Format("{0:MM/dd/yyyy}", item.DoB))</td>
+                <td><img src="@Url.Content(item.ImageUrl)" height="70" width="65" /></td>
+                <td>@Html.ActionLink("Edit", "Edit", new { id = item.EmployeeId }, htmlAttributes: new { @class = "btn btn-primary", @role = "button" })</td>
+                <td>@Html.ActionLink("Delete", "Delete", "Employee", new { id = item.EmployeeId }, htmlAttributes: new { @class = "btn btn-danger", @role = "button" })</td>
+
+            </tr>
+        }
+    </table>
+</div>
+
+
+
+

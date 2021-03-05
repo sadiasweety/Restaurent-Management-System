@@ -1,0 +1,73 @@
+﻿@model RestaurentManagementSystem_EF.Models.EmployeeCreateViewModel
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+<h2>Add New Employee</h2>
+@using (Html.BeginForm("AddOrEdit", "Employee", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "SubmitForm" }))
+{
+    @Html.AntiForgeryToken();
+    <div class="form-group row">
+        @Html.LabelFor(t => t.EmployeeName, htmlAttributes: new { @class = "form-control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(t => t.EmployeeName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(p => p.EmployeeName, "", new { @class = "txt-danger" })
+        </div>
+    </div>
+    <div class="form-group row">
+        @Html.LabelFor(t => t.Email, htmlAttributes: new { @class = "form-control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(t => t.Email, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(p => p.Email, "", new { @class = "txt-danger" })
+        </div>
+    </div>
+    <div class="form-group row">
+        @Html.LabelFor(t => t.DoB, htmlAttributes: new { @class = "form-control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(t => t.DoB, "{0:mm/dd/yyyy}")
+            @Html.ValidationMessageFor(p => p.DoB, "")
+        </div>
+    </div>
+    <div class="form-group row">
+        @Html.LabelFor(model => model.ImageUrl, htmlAttributes: new { @class = "form-control-label col-md-2" })
+        <div class="col-md-10">
+            <img src="~/Images/no.png" height="80" width="75" class="change_edit" />
+            <input type="file" name="ImageFile" class="form-control changeImage" />
+            @Html.ValidationMessageFor(model => model.ImageUrl, "", new { @class = "txt-danger" })
+        </div>
+    </div>
+    <div class="form-group row">
+
+        <div class="col-md-offset-2 col-md-2">
+            <input type="submit" value="Create" class="btn btn-outline-primary" />
+        </div>
+    </div>
+}
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#DoB").datepicker({
+            changeMonth: true, changeYear: true,
+            yearRange: "-35:+1"
+        });
+    })
+    $(function () {
+        $('.changeImage').change(function () {
+            var input = this;
+            if (input.files) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('.change_edit').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+
+        })
+    })
+</script>
+
+
+

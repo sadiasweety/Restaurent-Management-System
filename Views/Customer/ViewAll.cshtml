@@ -1,0 +1,58 @@
+﻿@model IEnumerable<RestaurentManagementSystem_EF.Models.CustomerInfo>
+
+@{
+    ViewBag.Title = "ViewAll";
+    Layout = null;
+}
+
+<table class="responsive-table" id="customerTable">
+    <thead>
+        Image
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImagePath)
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImagePath)
+            </td>
+            <td>
+                <img src="@Url.Content(item.ImagePath)" height="80" width="70" />
+            </td>
+            <td>
+                <a class="waves-effect waves-light btn" onclick="Edit('@Url.Action("AddOrEdit", "Customer", new { id=@item.CustomerID})')"><i class="fa fa-pencil fa-lg"></i></a>
+                <a class="waves-effect waves-light btn" onclick="Delete('@Url.Action("Delete", "Customer", new { id=@item.CustomerID})')"><i class="fa fa-trash fa-lg"></i></a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+
+

@@ -1,0 +1,76 @@
+﻿
+<div class="panel-heading">
+    <h1 style="text-align:center">Role Controller</h1>
+</div>
+<div class="panel-body">
+    <div>
+        @Html.ActionLink("Create Role", "Create", "Roles")
+    </div>
+
+    <table class="table table-condensed table-hover col-sm-6 col-lg-6 col-md-6 ">
+        @foreach (var role in ViewBag.Roles)
+        {
+            <tr>
+                <td class="col-sm-1 col-lg-5 col-md-3">
+                    <strong>@role.Text </strong>
+                </td>
+                <td class="col-sm-1 col-lg-1 col-md-2">
+                    <span onclick="return confirm('Are you sure to delete?')">
+                        <a href="/Roles/Delete?RoleName=@role.Text" class="delLink" style="color:red;">Delete</a>
+                    </span>
+
+                </td>
+            </tr>
+        }
+    </table>
+
+    <br />
+    <hr />
+    <hr />
+
+    <div>
+        @Html.ActionLink("Role Assign To User", "RoleAddToUser", "Roles")
+    </div>
+
+    <hr />
+
+    <div>
+        @Html.ActionLink("Role Remove From User", "DeleteRoleForUser", "Roles")
+    </div>
+
+    <hr />
+    <div>
+        <div>
+            <div>
+                <h2 style="text-align:center;">See Specific Roles of One User</h2>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("GetRoles", "Roles"))
+                {
+                    @Html.AntiForgeryToken()
+                    <p>
+                        User Name: @Html.DropDownList("UserName", (IEnumerable<SelectListItem>)ViewBag.Users, "Select ...",new { @class="dropdown-trigger btn"})
+                        <input type="submit" value="Get User Role" class="btn-primary" />
+                    </p>
+                }
+
+                @if (ViewBag.RolesForThisUser != null)
+                {
+                    <div class="">
+                        <strong>Roles of this user </strong>
+                        <ol>
+                            @foreach (string s in ViewBag.RolesForThisUser)
+                            {
+                                <li>@s</li>
+                            }
+                        </ol>
+                    </div>
+                }
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+

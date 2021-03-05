@@ -1,0 +1,72 @@
+﻿@model RestaurentManagementSystem_EF.Models.CustomerInfo
+
+@{
+    ViewBag.Title = "AddOrEdit";
+    Layout = null;
+}
+
+@using (Html.BeginForm("AddOrEdit", "Customer", FormMethod.Post, new { enctype = "multipart/form-data", onSubmit = "return jQueryAjaxPost(this);", data_restUrl = Url.Action("AddOrEdit", "Customer", new { id = 0 }) }))
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <form class="col s12">
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.CustomerID)
+            @Html.HiddenFor(model => model.ImagePath)
+            <div class="row">
+                <div class="input-field col s2">
+                    @Html.LabelFor(model => model.CustomerName, new { @class = "control-label col-md-2" })
+                </div>
+                <div class="input-field col s10">
+                    @Html.EditorFor(model => model.CustomerName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CustomerName)
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s2">
+                    @Html.LabelFor(model => model.PaymentType, new { @class = "control-label col-md-2" })
+                </div>
+                <div class="input-field col s10">
+                    @Html.EditorFor(model => model.PaymentType, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PaymentType)
+                </div>
+            </div>
+            @*<div class="row">
+            <div class="input-field col s2">
+                @Html.LabelFor(model => model.OrderDate, new { @class = "control-label col-md-2" })
+            </div>
+            <div class="input-field col s10">
+                @Html.EditorFor(model => model.OrderDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.OrderDate)
+            </div>
+        </div>*@
+        <div class="row">
+            <div class="input-field col s2">
+                @Html.LabelFor(model => model.OrderDate, new { @class = "control-label col-md-2" })
+            </div>
+            <div class="input-field col s10">
+                @Html.TextBoxFor(model => model.OrderDate, new { @class = "datepicker" })
+                @Html.ValidationMessageFor(model => model.OrderDate)
+            </div>
+        </div>
+            <div class="row">
+                @Html.LabelFor(model => model.ImagePath, new { @class = "control-label col-md-2" })
+
+                <img src="@Url.Content(Model.ImagePath)" style="margin:10px" height="200" width="200" id="imagePreview" />
+                <input type="file" name="ImageUpload" accept="image/jpeg, image/png" onchange="ShowImagePreview(this,document.getElementById('imagePreview'))" />
+            </div>
+            <div class="row">
+                <input type="submit" value="Submit" class="btn btn-default" />
+                @if (Model.CustomerID != 0)
+                {
+                    <a class="btn" onclick="refreshAddNewTab('@Url.Action("AddOrEdit","Customer",new{id=0})',false)"><i class="fa fa-plus"></i> Add New</a>
+                }
+            </div>
+</form>
+    </div>
+}
+
+
+
+
+

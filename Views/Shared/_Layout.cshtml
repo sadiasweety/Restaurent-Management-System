@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Materials/css/materialize.css" rel="stylesheet" />
+    <link href="~/Materials/css/materialize.min.css" rel="stylesheet" />
+
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    @*<script src="~/Scripts/modernizr-2.8.3.js"></script>*@
+
+</head>
+<body>
+    `
+    <nav style="background-color:cornsilk">
+        <div class="nav-wrapper black">
+            @*<a href="#!" class="brand-logo center">Logo</a>*@
+            <ul class="right hide-on-med-and-down">
+                @*<li><a href="sass.html">Sass</a></li>
+                    <li><a href="badges.html">Components</a></li>
+                    <li class="active"><a href="collapsible.html">JavaScript</a></li>*@
+                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                <li>@Html.ActionLink("Role", "Index", "Roles")</li>
+                <li>@Html.ActionLink("About", "About", "Home")</li>
+                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
+            </ul>
+            @Html.Partial("_LoginPartial")
+        </div>
+    </nav>
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Role", "Index", "Roles")</li>
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>*@
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer class="page-footer">
+            <div class="container">
+                <p class="grey-text text-lighten-4">&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </div>
+        </footer>
+    </div>
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script src="~/Scripts/Scripts.js"></script>
+    <script src="~/Scripts/notify.min.js"></script>
+    <script src="~/Materials/js/materialize.min.js"></script>
+    <script src="~/Materials/js/materialize.js"></script>
+
+
+    @Scripts.Render("~/bundles/jquery")
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

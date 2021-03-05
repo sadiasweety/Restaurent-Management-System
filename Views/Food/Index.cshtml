@@ -1,0 +1,99 @@
+﻿@model RestaurentManagementSystem_EF.Models.ViewModels.VmMenuWiseFood
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-4">
+        <h4>Menu</h4>
+        <p>
+            <a href="/Food/Create" class="btn btn-sm btn-success">Create New</a>
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    Menu
+                </th>
+                <th>
+                    Avaiable Food Items
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.MenuList)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MenuName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        <a href="/Food/Index?id=@item.MenuId" class="btn btn-sm btn-primary">Details</a> |
+                        <a href="/Food/EditMultiple?id=@item.MenuId" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="/Food/DeleteMultiple?id=@item.MenuId" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure to delete this category with products?')">Delete</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="col-md-8">
+        <h4>Prdoucts of @Model.MenuName</h4>
+        <p>
+            <a href="/Food/Create" class="btn btn-sm btn-success">Create New</a>
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    Menu
+                </th>
+                <th>
+                    Food Item
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>
+                    ExpireDate
+                </th>
+                <th>
+                    Quantity
+                </th>
+                <th>
+                    ImagePath
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.FoodList)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MenuName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FoodName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ExpireDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        <img src="@item.ImagePath" style="height:150px" />
+                    </td>
+                    <td>
+                        <a href="/Food/Edit?id=@item.ItemId" class="btn btn-sm btn-warning">Edit</a> |
+                        <a href="/Food/Delete?id=@item.ItemId" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure to delete this product?')">Delete</a>
+                    </td>
+
+                </tr>
+            }
+        </table>
+    </div>
+</div>

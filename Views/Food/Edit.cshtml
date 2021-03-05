@@ -1,0 +1,49 @@
+﻿@model RestaurentManagementSystem_EF.Models.ViewModels.VmFood
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var ExpireDate = Model.ExpireDate == null ? "" : Convert.ToDateTime(Model.ExpireDate).ToString("yyyy-MM-dd");
+
+}
+
+<h2>Edit Product</h2>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@using (Html.BeginForm("Edit", "Food", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            Category
+            <select id="MenuId" name="MenuId" required>
+                @foreach (var item in Model.MenuList)
+                {
+                    var Selected = item.MenuId == Model.MenuId ? "selected" : "";
+                    <option value="@item.MenuId" @Selected>@item.MenuName</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <div id="ProData" class="Table">
+                <div id="RowData" class="Row">
+                    <input type="hidden" name="ItemId" value="@Model.ItemId" />
+                    <input type="text" name="FoodName" placeholder="FoodName" value="@Model.FoodName" />
+                    <input type="text" name="Quantity" placeholder="Quantity" value="@Model.Quantity" />
+                    <input type="text" name="Price" placeholder="Price" value="@Model.Price" />
+                    <input type="date" name="ExpireDate" placeholder="ExpireDate" value="@ExpireDate" />
+                    <input type="file" name="imgFile" placeholder="imgFile" />
+                    <img src="@Model.ImagePath" style="width:150px" />
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Edit" class="btn btn-default">
+            </div>
+        </div>
+    </div>
+}
